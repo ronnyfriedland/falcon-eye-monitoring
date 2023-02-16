@@ -34,70 +34,70 @@ jobs:
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "jaegertracing/jaeger-collector:1.39"
-        artifact-name: jaeger-collector.json
+        artifact-name: jaeger-collector.xml
     - name: jaegertracing/jaeger-query
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "jaegertracing/jaeger-query:1.39"
-        artifact-name: jaeger-query.json
+        artifact-name: jaeger-query.xml
     - name: opensearchproject/opensearch
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "opensearchproject/opensearch:2.3.0"
-        artifact-name: opensearch.json
+        artifact-name: opensearch.xml
     - name: prometheuscommunity/elasticsearch-exporter
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "prometheuscommunity/elasticsearch-exporter:v1.5.0"
-        artifact-name: elasticsearch-exporter.json
+        artifact-name: elasticsearch-exporter.xml
     - name: jaegertracing/jaeger-es-index-cleaner
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "jaegertracing/jaeger-es-index-cleaner:1.39"
-        artifact-name: jaeger-es-index-cleaner.json
+        artifact-name: jaeger-es-index-cleaner.xml
     - name: prom/prometheus
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "prom/prometheus:v2.40.1"
-        artifact-name: prometheus.json
+        artifact-name: prometheus.xml
     - name: grafana
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "grafana/grafana:9.2.4"
-        artifact-name: grafana.json
+        artifact-name: grafana.xml
     - name: otel/opentelemetry-collector-contrib
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "otel/opentelemetry-collector-contrib:0.63.1"
-        artifact-name: opentelemetry-collector-contrib.json
+        artifact-name: opentelemetry-collector-contrib.xml
     - name: grafana/loki
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "grafana/loki:main"
-        artifact-name: loki.json
+        artifact-name: loki.xml
     - name: traefik
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "traefik:v2.9.4"
-        artifact-name: traefik.json
+        artifact-name: traefik.xml
     - name: percona/mongodb_exporter
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "percona/mongodb_exporter:2.32.0"
-        artifact-name: mongodb_exporter.json
+        artifact-name: mongodb_exporter.xml
     - name: prometheuscommunity/postgres-exporter
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "prometheuscommunity/postgres-exporter:v0.11.1"
-        artifact-name: postgres-exporter.json
+        artifact-name: postgres-exporter.xml
     - name: localbuild/shellexporter
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "localbuild/shellexporter:latest"
-        artifact-name: shellexporter.json
+        artifact-name: shellexporter.xml
     - name: localbuild/demoapp
       uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
       with:
         image: "localbuild/demoapp:latest"
-        artifact-name: demoapp.json
+        artifact-name: demoapp.xml
 
