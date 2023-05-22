@@ -1,0 +1,116 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow checks out code, builds an image, performs a container image
+# scan with Anchore's Syft tool, and uploads the results to the GitHub Dependency
+# submission API.
+
+# For more information on the Anchore sbom-action usage
+# and parameters, see https://github.com/anchore/sbom-action. For more
+# information about the Anchore SBOM tool, Syft, see
+# https://github.com/anchore/syft
+name: Anchore Syft SBOM scan
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  Anchore-Build-Scan:
+    permissions:
+      contents: write # required to upload to the Dependency submission API
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file shellexporter/Dockerfile --tag localbuild/shellexporter:latest
+    - name: Build the Docker image
+      run: docker build . --file demoapp/Dockerfile --tag localbuild/demoapp:latest
+    - name: jaegertracing/jaeger-collector
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "jaegertracing/jaeger-collector:1.43"
+        format: cyclonedx
+        artifact-name: jaeger-collector.xml
+    - name: jaegertracing/jaeger-query
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "jaegertracing/jaeger-query:1.43"
+        format: cyclonedx
+        artifact-name: jaeger-query.xml
+    - name: opensearchproject/opensearch
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "opensearchproject/opensearch:2.6.0"
+        format: cyclonedx
+        artifact-name: opensearch.xml
+    - name: prometheuscommunity/elasticsearch-exporter
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "prometheuscommunity/elasticsearch-exporter:v1.5.0"
+        format: cyclonedx
+        artifact-name: elasticsearch-exporter.xml
+    - name: jaegertracing/jaeger-es-index-cleaner
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "jaegertracing/jaeger-es-index-cleaner:1.43"
+        format: cyclonedx
+        artifact-name: jaeger-es-index-cleaner.xml
+    - name: prom/prometheus
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "prom/prometheus:v2.43.0"
+        format: cyclonedx
+        artifact-name: prometheus.xml
+    - name: grafana
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "grafana/grafana:9.4.7"
+        format: cyclonedx
+        artifact-name: grafana.xml
+    - name: otel/opentelemetry-collector-contrib
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "otel/opentelemetry-collector-contrib:0.74.0"
+        format: cyclonedx
+        artifact-name: opentelemetry-collector-contrib.xml
+    - name: grafana/loki
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "grafana/loki:main"
+        format: cyclonedx
+        artifact-name: loki.xml
+    - name: traefik
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "traefik:v2.9.8"
+        format: cyclonedx
+        artifact-name: traefik.xml
+    - name: percona/mongodb_exporter
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "percona/mongodb_exporter:2.35.0"
+        format: cyclonedx
+        artifact-name: mongodb_exporter.xml
+    - name: prometheuscommunity/postgres-exporter
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "prometheuscommunity/postgres-exporter:v0.12.0"
+        format: cyclonedx
+        artifact-name: postgres-exporter.xml
+    - name: localbuild/shellexporter
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "localbuild/shellexporter:latest"
+        format: cyclonedx
+        artifact-name: shellexporter.xml
+    - name: localbuild/demoapp
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "localbuild/demoapp:latest"
+        format: cyclonedx
+        artifact-name: demoapp.xml
